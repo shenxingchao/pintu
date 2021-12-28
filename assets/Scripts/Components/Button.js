@@ -6,9 +6,9 @@ cc.Class({
   onLoad() {
     let _this = this;
     //定义音频管理器组件
-    let audioMng = cc.find("PreloadManage/AudioManage");
-    // cc.find("LoginManage/AudioManage") ||
-    // cc.find("MenuManage/AudioManage") ||
+    let audioMng = cc.find("PreloadManage/AudioManage")||
+    cc.find("PlayTypeManage/AudioManage")||
+    cc.find("CustomPassOneTypeManage/AudioManage");
     // cc.find("GameManage/AudioManage");
     if (audioMng) {
       audioMng = audioMng.getComponent("AudioManage");

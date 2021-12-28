@@ -10,7 +10,7 @@ cc.Class({
   start() {
     //新版写法
     cc.tween(this.node.getChildByName("Title"))
-      .repeatForever(cc.tween().to(1, { scale: 1.8 }).to(1, { scale: 2.2 }))
+      .repeatForever(cc.tween().to(1, { scale: 1 }).to(1, { scale: 1.2 }))
       .start();
   },
 
