@@ -4,7 +4,6 @@ cc.Class({
   properties: {
     sence_name: {
       default: "",
-      type: cc.String,
       displayName: "跳转的场景名称",
     },
   },
