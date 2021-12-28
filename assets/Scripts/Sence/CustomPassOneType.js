@@ -3,9 +3,8 @@ cc.Class({
 
   properties: {},
 
-  ctor() {
-    this._pass_number = 8; //关卡数量 这个值 放在properties里不会刷新 需要注释掉才添加才会刷新，所以直接构造函数里
-  },
+  //构造函数
+  ctor() {},
 
   // LIFE-CYCLE CALLBACKS:
 
@@ -27,11 +26,14 @@ cc.Class({
       cover_list = res;
       // 加载 Prefab
       cc.resources.load("prefab/pass", function (err, prefab) {
-        for (let i = 1; i < _this._pass_number; i++) {
+        for (let i = 0; i < cover_list.length; i++) {
           let newNode = cc.instantiate(prefab);
           //设置预制节点的封面
           newNode.getChildByName("Sprite").getComponent(cc.Sprite).spriteFrame =
-            cover_list[i - 1];
+            cover_list[i];
+          //添加预制节点的按钮点击事件 点击关卡封面图 跳转到游戏场景并传参关卡序号 游戏场景通过
+          //读取这个序号的Json数据，动态加载对应的资源和关卡数据
+
           //添加预制节点
           cc.find("Canvas/ScrollView/view/content").addChild(newNode);
         }
