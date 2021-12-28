@@ -15,14 +15,4 @@ cc.Class({
   },
 
   // update (dt) {},
-
-  /**
-   * 加载游戏场景
-   * @type 游戏类型 1拼图游戏{number}
-   */
-  loadScene(event, customEventData) {
-    if (customEventData == 1) {
-      cc.director.loadScene("CustomPassOneType");
-    }
-  },
 });
