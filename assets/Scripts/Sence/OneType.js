@@ -81,21 +81,21 @@ cc.Class({
 
             //定义按下回调
             let node_pos = null;
+            //阴影图
+            let shadow_node = _this.game_background.getChildByName(
+              "Shadow" + i
+            );
             let onTouchDown = function (e) {
               //拖动开始，记录初始位置
               node_pos = e.getLocation();
-              //阴影图
-              let shadow_node = _this.game_background.getChildByName(
-                "Shadow" + i
-              );
               //设置其父节点为根节点
               node.setParent(_this.node);
               //设置其大小为阴影图缩放大小
               node.setScale(shadow_node.scaleX, shadow_node.scaleY);
-              //设置初始x,y
-              node.setPosition(node.parent.convertToNodeSpaceAR(node_pos));
               //显示阴影图
               shadow_node.active = true;
+              //设置初始x,y
+              node.setPosition(node.parent.convertToNodeSpaceAR(node_pos));
             };
 
             //定义拖动回调
@@ -107,6 +107,31 @@ cc.Class({
 
             //定义松开回调
             let onTouchUp = function () {
+              //判断2个物体中心距离 都转换成世界坐标
+              let pos_source = node.parent.convertToWorldSpaceAR(node.position);
+              let pos_shadow = shadow_node.parent.convertToWorldSpaceAR(
+                shadow_node.position
+              );
+              let distance = Math.sqrt(
+                Math.abs(
+                  Math.pow(pos_source.y - pos_shadow.y, 2) -
+                    Math.pow(pos_source.x - pos_shadow.x, 2)
+                )
+              );
+              if (distance < 20) {
+                //拖拽成功
+                //放置止到阴影位置
+                console.log(shadow_node.position);
+                node.setParent(_this.game_background);
+                node.setPosition(shadow_node.position);
+                //生成拖动项
+                _this._initSpriteItem();
+              } else {
+                //还原到原来的数组
+                node.setParent(_this.tool_bar_box);
+                node.setPosition(0, 0);
+                node.setScale(1, 1);
+              }
               _this.game_background.getChildByName("Shadow" + i).active = false;
             };
 
@@ -125,6 +150,10 @@ cc.Class({
   start() {},
 
   // update (dt) {},
+
+  /**
+   * 放置工具条内部的精灵
+   */
   _initSpriteItem() {
     let _this = this;
     let children = _this.tool_bar_box.children;
@@ -137,6 +166,8 @@ cc.Class({
       //递归生成
       if (children.length < 3 && _this.drag_items.length > 0) {
         this._initSpriteItem();
+      } else {
+        return false;
       }
     }
   },
