@@ -45,6 +45,13 @@ cc.Class({
           _this.game_background.getComponent(cc.Sprite).spriteFrame = res.find(
             (item) => item.name == "background"
           );
+          //根据name赋值给指定精灵数组的索引 不然打包后顺序错乱Bug
+          let sprite_array = [];
+          res.forEach((item) => {
+            if (item.name !== "background") {
+              sprite_array[parseInt(item.name)] = item;
+            }
+          });
 
           //循环添加阴影图,并设置每个节点的索引序号
           for (let i = 0; i < map_array.length; i++) {
@@ -61,7 +68,7 @@ cc.Class({
             //添加精灵组件使之成为精灵
             let sprite = node.addComponent(cc.Sprite);
             //设置精灵贴图
-            sprite.spriteFrame = res[i];
+            sprite.spriteFrame = sprite_array[i];
             //设置混合模式 这样就变成黑图了
             sprite.srcBlendFactor = cc.macro.BlendFactor.ZERO;
             //添加到父节点里面
@@ -79,7 +86,7 @@ cc.Class({
             //添加精灵组件使之成为精灵
             let sprite = node.addComponent(cc.Sprite);
             //设置精灵贴图
-            sprite.spriteFrame = res[i];
+            sprite.spriteFrame = sprite_array[i];
             //设置尺寸模式为原图模式  如果要设置尺寸需要设置为自定义尺寸
             sprite.sizeMode = cc.Sprite.SizeMode.RAW;
             //添加到拖动精灵组
