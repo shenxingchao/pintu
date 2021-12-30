@@ -85,7 +85,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Sprite",
+    "_name": "sprite",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -236,7 +236,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "4f069518-0fec-4113-9b3d-e507cc130f7e"
+      "__uuid__": "55780c00-2d9c-4687-8eca-134b85529dc8"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -328,6 +328,7 @@
       "__id__": 1
     },
     "_enabled": true,
+    "sence_name": "",
     "_id": ""
   },
   {

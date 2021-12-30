@@ -11,13 +11,10 @@ cc.Class({
   onLoad() {
     let _this = this;
     //定义音频管理器组件
-    let audioMng =
-      cc.find("PreloadManage/AudioManage") ||
-      cc.find("PlayTypeManage/AudioManage") ||
-      cc.find("CustomPassOneTypeManage/AudioManage") ||
-      cc.find("OneTypeManage/AudioManage");
-    if (audioMng) {
-      audioMng = audioMng.getComponent("AudioManage");
+    let audio_manage =
+      cc.find("manage/audio_manage");
+    if (audio_manage) {
+      audio_manage = audio_manage.getComponent("audio_manage");
     }
 
     //记录原始缩放，不然会丢失，连续按的情况下
@@ -29,7 +26,7 @@ cc.Class({
         .to(0.1, { scale: initscale * 0.9 })
         .start();
       //播放按钮音效
-      if (audioMng) audioMng.playButtonEffect();
+      if (audio_manage) audio_manage.playButtonEffect();
       //如果有跳转场景
       if (_this.sence_name) {
         _this._loadSence(_this.sence_name);

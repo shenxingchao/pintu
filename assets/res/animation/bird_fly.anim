@@ -1,0 +1,93 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "bird_fly",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.75,
+  "sample": 4,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "dfd84ec9-a06a-49d1-b6fe-2020974975c4"
+            }
+          },
+          {
+            "frame": 0.25,
+            "value": {
+              "__uuid__": "6c1735ee-8bf0-4136-ad1c-7768b74e615c"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "4a224485-9163-4d7d-8fce-b0d03dfa74aa"
+            }
+          },
+          {
+            "frame": 0.75,
+            "value": {
+              "__uuid__": "6c1735ee-8bf0-4136-ad1c-7768b74e615c"
+            }
+          },
+          {
+            "frame": 1,
+            "value": {
+              "__uuid__": "dfd84ec9-a06a-49d1-b6fe-2020974975c4"
+            }
+          },
+          {
+            "frame": 1.25,
+            "value": {
+              "__uuid__": "6c1735ee-8bf0-4136-ad1c-7768b74e615c"
+            }
+          },
+          {
+            "frame": 1.5,
+            "value": {
+              "__uuid__": "4a224485-9163-4d7d-8fce-b0d03dfa74aa"
+            }
+          }
+        ]
+      }
+    },
+    "props": {
+      "x": [
+        {
+          "frame": 0,
+          "value": -463.706
+        },
+        {
+          "frame": 0.25,
+          "value": -322.109
+        },
+        {
+          "frame": 0.5,
+          "value": -91.708
+        },
+        {
+          "frame": 0.75,
+          "value": 54.915
+        },
+        {
+          "frame": 1,
+          "value": 203.086
+        },
+        {
+          "frame": 1.25,
+          "value": 317.041
+        },
+        {
+          "frame": 1.5,
+          "value": 473.517
+        }
+      ]
+    }
+  },
+  "events": []
+}
