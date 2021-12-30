@@ -2,16 +2,16 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    game_background:{
-      default:null,
-      type:cc.Node,
-      displayName:'底图'
+    game_background: {
+      default: null,
+      type: cc.Node,
+      displayName: "底图",
     },
-    tool_bar_box:{
-      default:null,
-      type:cc.Node,
-      displayName:'底部工具条'
-    }
+    tool_bar_box: {
+      default: null,
+      type: cc.Node,
+      displayName: "底部工具条",
+    },
   },
 
   // LIFE-CYCLE CALLBACKS:
