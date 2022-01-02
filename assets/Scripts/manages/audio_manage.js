@@ -6,6 +6,16 @@ cc.Class({
       type: cc.AudioClip,
       tooltip: "按钮点击音效",
     },
+    ding: {
+      default: null,
+      type: cc.AudioClip,
+      tooltip: "成功音效",
+    },
+    game_success: {
+      default: null,
+      type: cc.AudioClip,
+      tooltip: "游戏挑战成功音效",
+    },
   },
 
   onLoad() {},
@@ -59,5 +69,19 @@ cc.Class({
    */
   playButtonEffect: function () {
     this._playEft(this.button);
+  },
+
+  /**
+   * 播放叮音效
+   */
+  playDingEffect: function () {
+    this._playEft(this.ding);
+  },
+
+  /**
+   * 播放游戏挑战成功音效
+   */
+  playGameSuccessEffect: function () {
+    this._playEft(this.game_success);
   },
 });

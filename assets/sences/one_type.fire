@@ -1212,6 +1212,7 @@
     "tool_bar_box": {
       "__id__": 20
     },
+    "audio_manage": null,
     "_id": "dclyvsF0lIV4sBmDBqx/ib"
   },
   {
@@ -1348,6 +1349,12 @@
     "_enabled": true,
     "button": {
       "__uuid__": "27a53e0f-2253-4fb0-8c72-01701b3ab7db"
+    },
+    "ding": {
+      "__uuid__": "8d710e1d-d169-4678-8beb-26f398fb43d7"
+    },
+    "game_success": {
+      "__uuid__": "bbd60e0d-edcd-4750-95bf-0b4e948aceef"
     },
     "_id": "230nwAKDxHxo6F1+r9HHOM"
   }

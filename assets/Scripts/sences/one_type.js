@@ -12,12 +12,23 @@ cc.Class({
       type: cc.Node,
       displayName: "底部工具条",
     },
+    audio_manage: {
+      default: null,
+      type: cc.Node,
+      displayName: "底部工具条",
+    },
   },
 
   // LIFE-CYCLE CALLBACKS:
 
   onLoad() {
     let _this = this;
+    //定义音频管理器组件
+    let audio_manage = cc.find("manage/audio_manage");
+    if (audio_manage) {
+      audio_manage = audio_manage.getComponent("audio_manage");
+    }
+
     //读取常驻节点属性关卡属性
     let pass_index = cc.director.getScene().getChildByName("pass_node")
       ? cc.director.getScene().getChildByName("pass_node").pass_index
@@ -156,6 +167,15 @@ cc.Class({
                 node.setParent(_this.tool_bar_box);
                 node.setPosition(0, 0);
                 node.setScale(1, 1);
+              } else {
+                //播放叮音效
+                if (audio_manage) {
+                  audio_manage.playDingEffect();
+                  if (_this.tool_bar_box.children.length == 0) {
+                    //播放游戏结束，挑战成功音效
+                    audio_manage.playGameSuccessEffect();
+                  }
+                }
               }
               _this.game_background.getChildByName("shadow" + i).active = false;
             };
