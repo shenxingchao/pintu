@@ -98,8 +98,19 @@ cc.Class({
             let sprite = node.addComponent(cc.Sprite);
             //设置精灵贴图
             sprite.spriteFrame = sprite_array[i];
-            //设置尺寸模式为原图模式  如果要设置尺寸需要设置为自定义尺寸
-            sprite.sizeMode = cc.Sprite.SizeMode.RAW;
+            //设置为自定义尺寸
+            sprite.sizeMode = cc.Sprite.SizeMode.CUSTOM;
+            //获取原图大小
+            const { width: origin_width, height: origin_height } =
+              node.getContentSize();
+            //假设宽高最多为212 自适应图片宽高
+            if (sprite.width > sprite.height) {
+              node.width = 212;
+              node.height = (212 * origin_height) / origin_width;
+            } else {
+              node.width = (212 * origin_width) / origin_height;
+              node.height = 212;
+            }
             //添加到拖动精灵组
             _this.drag_items.push(node);
             //给每个节点添加拖动事件  拖动时显示对应阴影图
@@ -119,6 +130,8 @@ cc.Class({
               node_pos = e.getLocation();
               //设置其父节点为根节点
               node.setParent(_this.node);
+              //设置尺寸模式为原图模式
+              sprite.sizeMode = cc.Sprite.SizeMode.RAW;
               //设置其大小为阴影图缩放大小
               node.setScale(shadow_node.scaleX, shadow_node.scaleY);
               //显示阴影图

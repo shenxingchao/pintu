@@ -20,7 +20,9 @@ cc.Class({
     //赋值常驻节点
     cc.game.addPersistRootNode(pass_node);
     //读取常驻节点
-    _this._persist_pass_node = cc.director.getScene().getChildByName("pass_node");
+    _this._persist_pass_node = cc.director
+      .getScene()
+      .getChildByName("pass_node");
 
     //循环加载关卡封面图
     let cover_list = [];
@@ -35,6 +37,8 @@ cc.Class({
       );
     }).then((res) => {
       cover_list = res;
+      //排序不然加载顺序有问题
+      cover_list.sort((a, b) => Number(a.name) - Number(b.name));
       // 加载 Prefab
       cc.resources.load("prefab/pass", function (err, prefab) {
         for (let i = 0; i < cover_list.length; i++) {
