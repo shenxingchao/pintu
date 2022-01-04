@@ -11,12 +11,7 @@ cc.Class({
       default: null,
       type: cc.Node,
       displayName: "底部工具条",
-    },
-    audio_manage: {
-      default: null,
-      type: cc.Node,
-      displayName: "底部工具条",
-    },
+    }
   },
 
   // LIFE-CYCLE CALLBACKS:

@@ -13,6 +13,11 @@ cc.Class({
 
   onLoad() {
     let _this = this;
+    //定义音频管理器组件
+    let audio_manage = cc.find("manage/audio_manage");
+    if (audio_manage) {
+      audio_manage = audio_manage.getComponent("audio_manage");
+    }
     // 加载目录下所有 SpriteFrame，并且获取它们的路径
     new Promise((resolve, reject) => {
       cc.resources.loadDir(
@@ -54,6 +59,10 @@ cc.Class({
             egg.setPosition(egg.parent.convertToNodeSpaceAR(e.getLocation()));
             let AnimationSystem = egg.getComponent(cc.Animation);
             AnimationSystem.play();
+            //播放蛋壳破碎音效
+            if (audio_manage) {
+              audio_manage.playEggEffect();
+            }
             //播放完毕移除
             AnimationSystem.on(
               "finished",
@@ -67,8 +76,10 @@ cc.Class({
                 let sprite = chick.addComponent(cc.Sprite);
                 //设置精灵贴图
                 sprite.spriteFrame = chick_sprite_frame;
-                //设置为自定义尺寸
+                //设置为原图尺寸
                 sprite.sizeMode = cc.Sprite.SizeMode.RAW;
+                //设置缩放
+                chick.setScale(0.8, 0.8);
                 //把egg位置赋值给小鸡
                 chick.setPosition(egg.getPosition());
                 chick.setParent(_this.background);

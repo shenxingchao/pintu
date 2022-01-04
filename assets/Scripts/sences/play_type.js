@@ -16,7 +16,7 @@ cc.Class({
   start() {
     //新版写法
     cc.tween(this.title)
-      .repeatForever(cc.tween().to(1, { scale: 1 }).to(1, { scale: 1.2 }))
+      .repeatForever(cc.tween().to(1, { scale: 1 }).to(1, { scale: 1.02 }))
       .start();
   },
 

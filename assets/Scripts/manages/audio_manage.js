@@ -16,6 +16,11 @@ cc.Class({
       type: cc.AudioClip,
       tooltip: "游戏挑战成功音效",
     },
+    egg: {
+      default: null,
+      type: cc.AudioClip,
+      tooltip: "蛋壳破碎音效",
+    },
   },
 
   onLoad() {},
@@ -83,5 +88,12 @@ cc.Class({
    */
   playGameSuccessEffect: function () {
     this._playEft(this.game_success);
+  },
+
+  /**
+   * 播放蛋壳破碎音效
+   */
+  playEggEffect: function () {
+    this._playEft(this.egg);
   },
 });
