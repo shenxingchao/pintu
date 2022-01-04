@@ -1157,6 +1157,8 @@
     "button": {
       "__uuid__": "27a53e0f-2253-4fb0-8c72-01701b3ab7db"
     },
+    "ding": null,
+    "game_success": null,
     "_id": "92khH1K/FO3rTlbSVoLueD"
   },
   {
