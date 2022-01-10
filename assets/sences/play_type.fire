@@ -618,13 +618,13 @@
       "__id__": 11
     },
     "_enabled": true,
-    "sence_name": "three",
+    "sence_name": "two_type",
     "_id": "28elVOgshLWqRxBhhue6D0"
   },
   {
     "__type__": "cc.Node",
     "_name": "three_type",
-    "_objFlags": 0,
+    "_objFlags": 512,
     "_parent": {
       "__id__": 2
     },
@@ -756,7 +756,7 @@
       "__id__": 15
     },
     "_enabled": true,
-    "sence_name": "two_type",
+    "sence_name": "three_type",
     "_id": "3eKx1Cm4NGGbsfpy3ensua"
   },
   {
