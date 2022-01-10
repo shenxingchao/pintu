@@ -18,6 +18,11 @@ cc.Class({
     cc.director.getPhysicsManager().enabled = true;
     //设置重力加速度 下降640世界单位/秒
     cc.director.getPhysicsManager().gravity = cc.v2(0, -640);
+    
+    //加载预制体
+
+    //生成一个预制体
+    //放置到顶部中心
 
     // //测试碰撞事件 后面改成预制体之间的碰撞了
     // cc.find("Canvas/background/1").on(
