@@ -88,14 +88,14 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 1,
-    "_custom": false,
+    "_custom": true,
     "_file": {
       "__uuid__": "5a77dba3-af52-4b22-9866-5bcb3edd074a"
     },
     "_spriteFrame": null,
     "_texture": null,
     "_stopped": true,
-    "playOnLoad": true,
+    "playOnLoad": false,
     "autoRemoveOnFinish": false,
     "totalParticles": 10,
     "duration": 0.5,

@@ -1,10 +1,17 @@
-import collider from "../components/collider";
-
 cc.Class({
   extends: cc.Component,
 
   properties: {
     background: {
+      default: null,
+      type: cc.Node,
+    },
+    score: {
+      default: null,
+      type: cc.Label,
+    },
+    //工具栏  用于碰到工具栏游戏结束
+    top_button: {
       default: null,
       type: cc.Node,
     },
@@ -23,6 +30,8 @@ cc.Class({
     }
     //播放bg
     _this.audio_manage.playThreeTypeBg();
+    //全局音效播放队列
+    _this.audio_queue = [];
     //开启
     cc.director.getPhysicsManager().enabled = true;
     //设置重力加速度 下降640世界单位/秒
@@ -75,11 +84,97 @@ cc.Class({
         _this
       );
     });
+
+    //游戏结束
+    _this.top_button.on(
+      "onBeginContactEvent",
+      (contact, selfCollider, otherCollider) => {
+        cc.director.loadScene("three_type");
+      }
+    );
   },
 
-  start() {},
+  start() {
+    let _this = this;
+    //初始化游戏数据
+    _this.score.string = 0;
+    //配置游戏得分策略和爆炸颜色
+    _this.options = [
+      {
+        score: 10,
+        color: new cc.Color().fromHEX("#8844D0"),
+      },
+      {
+        score: 20,
+        color: new cc.Color().fromHEX("#FF772D"),
+      },
+      {
+        score: 30,
+        color: new cc.Color().fromHEX("#E93738"),
+      },
+      {
+        score: 50,
+        color: new cc.Color().fromHEX("#F33D49"),
+      },
+      {
+        score: 100,
+        color: new cc.Color().fromHEX("#AAE733"),
+      },
+      {
+        score: 200,
+        color: new cc.Color().fromHEX("#FEDA1C"),
+      },
+      {
+        score: 300,
+        color: new cc.Color().fromHEX("#FABE44"),
+      },
+      {
+        score: 500,
+        color: new cc.Color().fromHEX("#9548C6"),
+      },
+      {
+        score: 1000,
+        color: new cc.Color().fromHEX("#8EA931"),
+      },
+      {
+        score: 2000,
+        color: new cc.Color().fromHEX("#C7F121"),
+      },
+      {
+        score: 3000,
+        color: new cc.Color().fromHEX("#E9655D"),
+      },
+      {
+        score: 5000,
+        color: new cc.Color().fromHEX("#DABA2A"),
+      },
+      {
+        score: 10000,
+        color: new cc.Color().fromHEX("#FCEE30"),
+      },
+      {
+        score: 20000,
+        color: new cc.Color().fromHEX("#176301"),
+      },
+    ];
+  },
 
-  update(dt) {},
+  update(dt) {
+    let _this = this;
+    //音频队列处理
+    if (_this.audio_queue.length > 0 && !_this.is_playing_effect) {
+      _this.is_playing_effect = true;
+      let audio_type = _this.audio_queue.shift();
+      if (audio_type == "Collide") {
+        _this.audio_manage.playCollideEffect();
+      } else if (audio_type == "CollideBoom") {
+        _this.audio_manage.playCollideBoomEffect();
+      }
+      setTimeout(() => {
+        _this.is_playing_effect = false;
+      }, 100);
+    }
+  },
 
   onDestroy() {
     let _this = this;
@@ -97,7 +192,7 @@ cc.Class({
       return;
     }
     //从前面5个随机取一个 生成一个预制体
-    let index = Math.floor(Math.random() * 4);
+    let index = Math.floor(Math.random() * 6);
     _this.current_fruit_perfab = cc.instantiate(_this.prefabs[index]);
     //这里可以复制每个预制体的自定义属性
     //ToDo
@@ -161,46 +256,58 @@ cc.Class({
 
     //是否已经生成标志
     let is_generate = false;
+    //只播放一次碰撞声音 掉落第一次的声音
+    let is_fall_off = false;
     //预制体碰撞检测
     _this.current_fruit_perfab.on(
       "onBeginContactEvent",
       (contact, selfCollider, otherCollider) => {
         //只播放一次碰撞声音 掉落第一次的声音
-        if (!selfCollider.node.is_fall_off && !otherCollider.node.is_fall_off) {
-          selfCollider.node.is_fall_off = true;
-          _this.audio_manage.playCollideEffect();
+        if (!is_fall_off) {
+          is_fall_off = true;
+          _this.audio_queue.push("Collide");
         }
         //判断对象类型 类型一样的进行合并 播放合并粒子动画 删除2个对象 生成新的对象
-        if (selfCollider.name == otherCollider.name) {
+        let index = parseInt(selfCollider.name);
+
+        if (selfCollider.name == otherCollider.name && index != 13) {
           //记录碰撞点世界坐标
           let world_manifold = contact.getWorldManifold();
           let collide_w_pos = world_manifold.points[0];
+
           if (
             !selfCollider.node.is_colliding &&
             !otherCollider.node.is_colliding
           ) {
             //只执行一次
             selfCollider.node.is_colliding = true;
-            //生成一个大的放进去
-            _this.generateBigPrefab(
-              collide_w_pos,
-              parseInt(selfCollider.name) + 1
-            );
+            //延迟生成新的
+            setTimeout(() => {
+              //播放爆炸音效
+              _this.audio_queue.push("CollideBoom");
+              //播放粒子动画 设置层级防止挡住
+              _this.fruit_boom.setSiblingIndex(101);
+              _this.fruit_boom.setParent(_this.background);
+              let start_pos =
+                _this.fruit_boom.parent.convertToNodeSpaceAR(collide_w_pos);
+              _this.fruit_boom.setPosition(start_pos);
+              //播放粒子
+              let ParticleSystem = _this.fruit_boom.getComponent(
+                cc.ParticleSystem
+              );
+              ParticleSystem.startColor = _this.options[index].color;
+              ParticleSystem.startColorVar = _this.options[index].color;
+              //重置粒子系统(播放粒子)
+              ParticleSystem.resetSystem();
+              //生成一个大的放进去
+              _this.generateBigPrefab(collide_w_pos, index + 1);
+              //得分
+              _this.changeScore(index);
+            }, 50);
           }
-          //播放爆炸音效
-          _this.audio_manage.playCollideBoomEffect();
+
           //摧毁各自碰撞的2个预制体
           selfCollider.node.destroy();
-          //播放粒子动画 设置层级防止挡住
-          _this.fruit_boom.setSiblingIndex(101);
-          _this.fruit_boom.setParent(_this.background);
-          let start_pos =
-            _this.fruit_boom.parent.convertToNodeSpaceAR(collide_w_pos);
-          _this.fruit_boom.setPosition(start_pos);
-          //播放粒子
-          let ParticleSystem = _this.fruit_boom.getComponent(cc.ParticleSystem);
-          //重置粒子系统(播放粒子)
-          ParticleSystem.resetSystem();
         }
         if (!is_generate) {
           is_generate = true;
@@ -238,36 +345,57 @@ cc.Class({
       "onBeginContactEvent",
       (contact, selfCollider, otherCollider) => {
         //判断对象类型 类型一样的进行合并 播放合并粒子动画 删除2个对象 生成新的对象
-        if (selfCollider.name == otherCollider.name) {
+        let index = parseInt(selfCollider.name);
+
+        if (selfCollider.name == otherCollider.name && index != 13) {
           //记录碰撞点世界坐标
           let world_manifold = contact.getWorldManifold();
           let collide_w_pos = world_manifold.points[0];
+
           if (
             !selfCollider.node.is_colliding &&
             !otherCollider.node.is_colliding
           ) {
             //只执行一次
             selfCollider.node.is_colliding = true;
-            //生成一个大的放进去
-            _this.generateBigPrefab(
-              collide_w_pos,
-              parseInt(selfCollider.name) + 1
-            );
+            //延迟生成新的
+            setTimeout(() => {
+              //播放爆炸音效
+              _this.audio_queue.push("CollideBoom");
+              //播放粒子动画 设置层级防止挡住
+              _this.fruit_boom.setSiblingIndex(101);
+              _this.fruit_boom.setParent(_this.background);
+              let start_pos =
+                _this.fruit_boom.parent.convertToNodeSpaceAR(collide_w_pos);
+              _this.fruit_boom.setPosition(start_pos);
+              //播放粒子
+              let ParticleSystem = _this.fruit_boom.getComponent(
+                cc.ParticleSystem
+              );
+              ParticleSystem.startColor = _this.options[index].color;
+              //重置粒子系统(播放粒子)
+              ParticleSystem.resetSystem();
+              //生成一个大的放进去
+              _this.generateBigPrefab(collide_w_pos, index + 1);
+              //得分
+              _this.changeScore(index);
+            }, 50);
           }
+
           //摧毁各自碰撞的2个预制体
           selfCollider.node.destroy();
-          //播放粒子动画 设置层级防止挡住
-          _this.fruit_boom.setSiblingIndex(101);
-          _this.fruit_boom.setParent(_this.background);
-          let start_pos =
-            _this.fruit_boom.parent.convertToNodeSpaceAR(collide_w_pos);
-          _this.fruit_boom.setPosition(start_pos);
-          //播放粒子
-          let ParticleSystem = _this.fruit_boom.getComponent(cc.ParticleSystem);
-          //重置粒子系统(播放粒子)
-          ParticleSystem.resetSystem();
         }
       }
     );
+  },
+
+  /**
+   * 得分
+   * @param {int} index 得分类型
+   */
+  changeScore(index) {
+    let _this = this;
+    _this.score.string =
+      parseInt(_this.score.string) + _this.options[index].score;
   },
 });
