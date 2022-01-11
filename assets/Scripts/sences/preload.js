@@ -49,7 +49,7 @@ cc.Class({
     if (
       !this.start_button.active &&
       this.play_type_preload_finished &&
-      this.loading_bg.getComponent("loading").isLoadFinished()
+      this.loading_bg.getComponent("Loading").isLoadFinished()
     ) {
       //隐藏进度条
       this.loading_bg.active = false;
