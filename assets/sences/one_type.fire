@@ -113,8 +113,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -125,8 +125,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        360,
-        640,
+        375,
+        667,
         0,
         0,
         0,
@@ -273,8 +273,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 750,
-      "height": 1334
+      "width": 1080,
+      "height": 1921
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -387,8 +387,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -242.7,
-        550,
+        -256.4791666666667,
+        577,
         0,
         0,
         0,
@@ -538,7 +538,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        111.60000000000002,
+        138.60000000000002,
         0,
         0,
         0,
@@ -775,7 +775,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 676.8,
+      "width": 705,
       "height": 281
     },
     "_anchorPoint": {
@@ -788,7 +788,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -431.0999999999999,
+        -404.0999999999999,
         0,
         0,
         0,
@@ -844,7 +844,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 636.8,
+      "width": 665,
       "height": 241
     },
     "_anchorPoint": {
@@ -1154,8 +1154,8 @@
     "_enabled": true,
     "_designResolution": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_fitWidth": true,
     "_fitHeight": false,
@@ -1212,7 +1212,6 @@
     "tool_bar_box": {
       "__id__": 20
     },
-    "audio_manage": null,
     "_id": "dclyvsF0lIV4sBmDBqx/ib"
   },
   {
@@ -1356,6 +1355,10 @@
     "game_success": {
       "__uuid__": "bbd60e0d-edcd-4750-95bf-0b4e948aceef"
     },
+    "egg": null,
+    "three_type_bg": null,
+    "collide": null,
+    "collide_boom": null,
     "_id": "230nwAKDxHxo6F1+r9HHOM"
   }
 ]

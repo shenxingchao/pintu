@@ -39,7 +39,7 @@ cc.Class({
     let animation_manage = cc
       .find("manage/animation_manage")
       .getComponent("animation_manage");
-      animation_manage.playBirdFlyAnim();
+    animation_manage.playBirdFlyAnim();
   },
 
   start() {},

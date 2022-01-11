@@ -110,8 +110,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -122,8 +122,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        360,
-        640,
+        375,
+        667,
         0,
         0,
         0,
@@ -270,8 +270,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 750,
-      "height": 1334
+      "width": 1080,
+      "height": 1921
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -384,8 +384,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -242.72000000000003,
-        550,
+        -256.5,
+        577,
         0,
         0,
         0,
@@ -528,8 +528,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1090
+      "width": 750,
+      "height": 1144
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -601,7 +601,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 12,
-      "height": 1090
+      "height": 1144
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -612,7 +612,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        360,
+        375,
         0,
         0,
         0,
@@ -808,7 +808,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
+      "width": 750,
       "height": 0
     },
     "_anchorPoint": {
@@ -821,7 +821,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        545,
+        572,
         0,
         0,
         0,
@@ -877,8 +877,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1090
+      "width": 750,
+      "height": 1144
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -971,7 +971,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 720,
+      "width": 750,
       "height": 0
     },
     "_resize": 1,
@@ -1146,8 +1146,8 @@
     "_enabled": true,
     "_designResolution": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_fitWidth": true,
     "_fitHeight": false,
@@ -1335,6 +1335,12 @@
     "button": {
       "__uuid__": "27a53e0f-2253-4fb0-8c72-01701b3ab7db"
     },
+    "ding": null,
+    "game_success": null,
+    "egg": null,
+    "three_type_bg": null,
+    "collide": null,
+    "collide_boom": null,
     "_id": "655pVZAShL6Ll1x6CkmFrB"
   }
 ]

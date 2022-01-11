@@ -55,8 +55,8 @@
         0,
         0,
         1,
-        2.5,
-        2.5,
+        2.2,
+        2.2,
         1
       ]
     },
@@ -327,7 +327,7 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 8,
-    "_left": 0.6,
+    "_left": 0.7,
     "_right": 0,
     "_top": 0,
     "_bottom": 0,

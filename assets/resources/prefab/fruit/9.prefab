@@ -45,8 +45,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 98,
-      "height": 97
+      "width": 302,
+      "height": 302
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -57,16 +57,16 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        126,
-        238.441,
+        2551.202,
+        396.483,
         0,
         0,
         0,
         0,
         1,
-        1.6,
-        1.6,
-        1.4
+        1,
+        1,
+        1
       ]
     },
     "_eulerAngles": {
@@ -98,7 +98,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "242210cb-ed07-4679-8f47-cea17cdb6da0"
+      "__uuid__": "40adc8d0-9031-4145-aa2c-04e5e96319e7"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -124,7 +124,7 @@
     "_enabled": true,
     "_type": 0,
     "_allowSleep": true,
-    "_gravityScale": 5.5,
+    "_gravityScale": 1,
     "_linearDamping": 0.5,
     "_angularDamping": 0.2,
     "_linearVelocity": {
@@ -140,7 +140,7 @@
     "_id": ""
   },
   {
-    "__type__": "cc.PhysicsPolygonCollider",
+    "__type__": "cc.PhysicsCircleCollider",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -158,58 +158,7 @@
       "x": 0,
       "y": 0
     },
-    "points": [
-      {
-        "__type__": "cc.Vec2",
-        "x": -16,
-        "y": 48.5
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -38,
-        "y": 34.5
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -49,
-        "y": 14.5
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -49,
-        "y": -14.5
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -41,
-        "y": -41.5
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 16,
-        "y": -48.5
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 41,
-        "y": -30.5
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 49,
-        "y": -14.5
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 49,
-        "y": 14.5
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 41,
-        "y": 41.5
-      }
-    ],
+    "_radius": 151,
     "_id": ""
   },
   {

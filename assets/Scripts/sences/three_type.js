@@ -208,7 +208,7 @@ cc.Class({
       return;
     }
     //从前面5个随机取一个 生成一个预制体
-    let index = Math.floor(Math.random() * 6);
+    let index = Math.floor(Math.random() * 5);
     _this.current_fruit_perfab = cc.instantiate(_this.prefabs[index]);
     //这里可以复制每个预制体的自定义属性
     //ToDo
@@ -286,7 +286,7 @@ cc.Class({
         //判断对象类型 类型一样的进行合并 播放合并粒子动画 删除2个对象 生成新的对象
         let index = parseInt(selfCollider.name);
 
-        if (selfCollider.name == otherCollider.name && index != 13) {
+        if (selfCollider.name == otherCollider.name && index != 10) {
           //记录碰撞点世界坐标
           let world_manifold = contact.getWorldManifold();
           let collide_w_pos = world_manifold.points[0];
@@ -365,7 +365,7 @@ cc.Class({
         //判断对象类型 类型一样的进行合并 播放合并粒子动画 删除2个对象 生成新的对象
         let index = parseInt(selfCollider.name);
 
-        if (selfCollider.name == otherCollider.name && index != 13) {
+        if (selfCollider.name == otherCollider.name && index != 10) {
           //记录碰撞点世界坐标
           let world_manifold = contact.getWorldManifold();
           let collide_w_pos = world_manifold.points[0];
@@ -425,30 +425,28 @@ cc.Class({
   showHit() {
     let _this = this;
     let hit = cc.instantiate(_this.hit);
+    //计数+1
+    _this.hit_number += 1;
+    //赋值
+    hit
+      .getChildByName("hit_label")
+      .getChildByName("hit_number")
+      .getComponent(cc.Label).string = _this.hit_number;
     hit.setParent(_this.node);
     hit.setPosition(cc.v2(0, -100));
     let t = cc.tween;
     cc.tween(hit)
       // 同时执行两个 cc.tween
       .parallel(
-        t().by(1, { scale: -1.5 }),
+        t().by(1, { scale: -0.5 }),
         t().by(1, { position: cc.v2(0, 400) })
       )
       .start();
-
-    //计数+1
-    _this.hit_number += 1;
 
     //重置timer
     if (_this.hit_number_reset_timer) {
       clearTimeout(_this.hit_number_reset_timer);
     }
-
-    //赋值
-    hit
-      .getChildByName("hit_label")
-      .getChildByName("hit_number")
-      .getComponent(cc.Label).string = _this.hit_number;
 
     //销毁
     setTimeout(() => {

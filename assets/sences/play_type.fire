@@ -20,7 +20,7 @@
         "__id__": 26
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [],
     "_prefab": null,
     "_opacity": 255,
@@ -116,8 +116,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -128,8 +128,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        360,
-        640,
+        375,
+        667,
         0,
         0,
         0,
@@ -276,8 +276,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 750,
-      "height": 1334
+      "width": 1080,
+      "height": 1921
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -388,8 +388,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -166.79999999999995,
-        227.208,
+        -180.89999999999998,
+        254.208,
         0,
         0,
         0,
@@ -526,8 +526,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        166.79999999999995,
-        14.799999999999983,
+        180.89999999999998,
+        41.79999999999998,
         0,
         0,
         0,
@@ -664,8 +664,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -179.8,
-        -164,
+        -193,
+        -137,
         0,
         0,
         0,
@@ -800,7 +800,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        519,
+        546,
         0,
         0,
         0,
@@ -893,8 +893,8 @@
     "_enabled": true,
     "_designResolution": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 750,
+      "height": 1334
     },
     "_fitWidth": true,
     "_fitHeight": true,
@@ -1088,6 +1088,9 @@
     "ding": null,
     "game_success": null,
     "egg": null,
+    "three_type_bg": null,
+    "collide": null,
+    "collide_boom": null,
     "_id": "e69XEOUCFFraCjMAb/TXCm"
   }
 ]

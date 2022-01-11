@@ -2,16 +2,16 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    title:{
-      default:null,
-      type:cc.Node,
-      displayName:'标题',
-    }
+    title: {
+      default: null,
+      type: cc.Node,
+      displayName: "标题",
+    },
   },
 
   // LIFE-CYCLE CALLBACKS:
 
-  // onLoad () {},
+  onLoad() {},
 
   start() {
     //新版写法
