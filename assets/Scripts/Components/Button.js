@@ -11,8 +11,7 @@ cc.Class({
   onLoad() {
     let _this = this;
     //定义音频管理器组件
-    let audio_manage =
-      cc.find("manage/audio_manage");
+    let audio_manage = cc.find("manage/audio_manage");
     if (audio_manage) {
       audio_manage = audio_manage.getComponent("audio_manage");
     }
@@ -27,14 +26,14 @@ cc.Class({
         .start();
       //播放按钮音效
       if (audio_manage) audio_manage.playButtonEffect();
-      //如果有跳转场景
-      if (_this.sence_name) {
-        _this._loadSence(_this.sence_name);
-      }
     };
     //定义松开回调
     let onTouchUp = function () {
       cc.tween(_this.node).to(0.1, { scale: initscale }).start();
+      //如果有跳转场景
+      if (_this.sence_name) {
+        _this._loadSence(_this.sence_name);
+      }
     };
     this.node.on("touchstart", onTouchDown, this.node);
     this.node.on("touchend", onTouchUp, this.node);
