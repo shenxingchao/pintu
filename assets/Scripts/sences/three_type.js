@@ -38,6 +38,7 @@ cc.Class({
     cc.director.getPhysicsManager().enabled = true;
     //设置重力加速度 下降640世界单位/秒
     cc.director.getPhysicsManager().gravity = cc.v2(0, -1920);
+
     // 加载粒子
     cc.resources.load("prefab/fruit_boom", function (err, prefab) {
       //爆炸粒子预制

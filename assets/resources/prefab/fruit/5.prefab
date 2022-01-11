@@ -124,7 +124,7 @@
     "_enabled": true,
     "_type": 0,
     "_allowSleep": true,
-    "_gravityScale": 1,
+    "_gravityScale": 2,
     "_linearDamping": 0.5,
     "_angularDamping": 0.2,
     "_linearVelocity": {
@@ -135,7 +135,7 @@
     "_angularVelocity": 0,
     "_fixedRotation": false,
     "enabledContactListener": true,
-    "bullet": false,
+    "bullet": true,
     "awakeOnLoad": true,
     "_id": ""
   },
