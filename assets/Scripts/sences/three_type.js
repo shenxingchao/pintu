@@ -188,7 +188,7 @@ cc.Class({
       _this.showHit();
       setTimeout(() => {
         _this.is_hiting_effect = false;
-      }, 100);
+      }, 200);
     }
   },
 
@@ -453,7 +453,7 @@ cc.Class({
     //销毁
     setTimeout(() => {
       hit.destroy();
-    }, 1000);
+    }, 1500);
 
     //计数重置
     _this.hit_number_reset_timer = setTimeout(() => {
