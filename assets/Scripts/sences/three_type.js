@@ -351,7 +351,7 @@ cc.Class({
     //ToDo
     //放置到碰撞位置
     _this.background.addChild(fruit_perfab);
-    start_pos = fruit_perfab.parent.convertToNodeSpaceAR(collide_w_pos);
+    let start_pos = fruit_perfab.parent.convertToNodeSpaceAR(collide_w_pos);
     fruit_perfab.setPosition(start_pos);
 
     //赋予物理属性
