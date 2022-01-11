@@ -1159,6 +1159,10 @@
     },
     "ding": null,
     "game_success": null,
+    "egg": null,
+    "three_type_bg": null,
+    "collide": null,
+    "collide_boom": null,
     "_id": "92khH1K/FO3rTlbSVoLueD"
   },
   {
