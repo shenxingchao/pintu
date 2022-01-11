@@ -19,8 +19,10 @@ cc.Class({
     //定义音频管理器组件
     let audio_manage = cc.find("manage/audio_manage");
     if (audio_manage) {
-      audio_manage = audio_manage.getComponent("audio_manage");
+      _this.audio_manage = audio_manage.getComponent("audio_manage");
     }
+    //播放bg
+    _this.audio_manage.playThreeTypeBg();
     //开启
     cc.director.getPhysicsManager().enabled = true;
     //设置重力加速度 下降640世界单位/秒
@@ -78,6 +80,12 @@ cc.Class({
   start() {},
 
   update(dt) {},
+
+  onDestroy() {
+    let _this = this;
+    //停止播放bg
+    _this.audio_manage._stopMusic();
+  },
 
   /**
    *  生成水果预制体
@@ -157,9 +165,13 @@ cc.Class({
     _this.current_fruit_perfab.on(
       "onBeginContactEvent",
       (contact, selfCollider, otherCollider) => {
+        //只播放一次碰撞声音 掉落第一次的声音
+        if (!selfCollider.node.is_fall_off && !otherCollider.node.is_fall_off) {
+          selfCollider.node.is_fall_off = true;
+          _this.audio_manage.playCollideEffect();
+        }
         //判断对象类型 类型一样的进行合并 播放合并粒子动画 删除2个对象 生成新的对象
         if (selfCollider.name == otherCollider.name) {
-          // console.log(selfCollider.node);
           //记录碰撞点世界坐标
           let world_manifold = contact.getWorldManifold();
           let collide_w_pos = world_manifold.points[0];
@@ -175,6 +187,8 @@ cc.Class({
               parseInt(selfCollider.name) + 1
             );
           }
+          //播放爆炸音效
+          _this.audio_manage.playCollideBoomEffect();
           //摧毁各自碰撞的2个预制体
           selfCollider.node.destroy();
           //播放粒子动画 设置层级防止挡住

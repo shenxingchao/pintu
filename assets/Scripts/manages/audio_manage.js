@@ -21,6 +21,21 @@ cc.Class({
       type: cc.AudioClip,
       tooltip: "蛋壳破碎音效",
     },
+    three_type_bg: {
+      default: null,
+      type: cc.AudioClip,
+      tooltip: "游戏类型3合成大西瓜背景音乐",
+    },
+    collide: {
+      default: null,
+      type: cc.AudioClip,
+      tooltip: "游戏类型3撞击音效",
+    },
+    collide_boom: {
+      default: null,
+      type: cc.AudioClip,
+      tooltip: "游戏类型3爆炸声",
+    },
   },
 
   onLoad() {},
@@ -95,5 +110,26 @@ cc.Class({
    */
   playEggEffect: function () {
     this._playEft(this.egg);
+  },
+
+  /**
+   * 播放游戏类型3背景音乐
+   */
+  playThreeTypeBg: function () {
+    this._playMusic(this.three_type_bg);
+  },
+
+  /**
+   * 播放游戏类型3碰撞音效
+   */
+  playCollideEffect: function () {
+    this._playEft(this.collide);
+  },
+
+  /**
+   * 播放游戏类型3爆炸音效
+   */
+  playCollideBoomEffect: function () {
+    this._playEft(this.collide_boom);
   },
 });

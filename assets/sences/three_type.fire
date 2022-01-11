@@ -1719,6 +1719,15 @@
     "ding": null,
     "game_success": null,
     "egg": null,
+    "three_type_bg": {
+      "__uuid__": "e95d5cc0-8fac-48e3-862c-5a92692b5fc3"
+    },
+    "collide": {
+      "__uuid__": "ca2e0f10-6c1b-4671-95e8-976f672d6b23"
+    },
+    "collide_boom": {
+      "__uuid__": "37c011cf-3ed6-4295-928e-586a9e655811"
+    },
     "_id": "267aybXgxEzLlpEne10iof"
   }
 ]
