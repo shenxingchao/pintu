@@ -32,6 +32,8 @@ cc.Class({
     _this.audio_manage.playThreeTypeBg();
     //全局音效播放队列
     _this.audio_queue = [];
+    //连击队列
+    _this.hit_queue = [];
     //开启
     cc.director.getPhysicsManager().enabled = true;
     //设置重力加速度 下降640世界单位/秒
@@ -40,6 +42,10 @@ cc.Class({
     cc.resources.load("prefab/fruit_boom", function (err, prefab) {
       //爆炸粒子预制
       _this.fruit_boom = cc.instantiate(prefab);
+    });
+    // 加载连击数
+    cc.resources.load("prefab/hit", function (err, prefab) {
+      _this.hit = prefab;
     });
     // 加载目录下所有 预制体，并且获取它们的路径
     new Promise((resolve, reject) => {
@@ -98,6 +104,7 @@ cc.Class({
     let _this = this;
     //初始化游戏数据
     _this.score.string = 0;
+    _this.hit_number = 0;
     //配置游戏得分策略和爆炸颜色
     _this.options = [
       {
@@ -174,6 +181,15 @@ cc.Class({
         _this.is_playing_effect = false;
       }, 100);
     }
+    //连击队列处理
+    if (_this.hit_queue.length > 0 && !_this.is_hiting_effect) {
+      _this.is_hiting_effect = true;
+      _this.hit_queue.shift();
+      _this.showHit();
+      setTimeout(() => {
+        _this.is_hiting_effect = false;
+      }, 100);
+    }
   },
 
   onDestroy() {
@@ -200,7 +216,7 @@ cc.Class({
     let start_pos = cc.v2(
       cc.view.getVisibleSize().width / 2,
       cc.view.getVisibleSize().height -
-        120 -
+        150 -
         _this.current_fruit_perfab.height / 2
     );
     //放置到顶部中心
@@ -303,6 +319,8 @@ cc.Class({
               _this.generateBigPrefab(collide_w_pos, index + 1);
               //得分
               _this.changeScore(index);
+              //显示连击数
+              _this.hit_queue.push("hit");
             }, 50);
           }
 
@@ -379,6 +397,8 @@ cc.Class({
               _this.generateBigPrefab(collide_w_pos, index + 1);
               //得分
               _this.changeScore(index);
+              //显示连击数
+              _this.hit_queue.push("hit");
             }, 50);
           }
 
@@ -397,5 +417,47 @@ cc.Class({
     let _this = this;
     _this.score.string =
       parseInt(_this.score.string) + _this.options[index].score;
+  },
+
+  /**
+   * 显示连击数
+   */
+  showHit() {
+    let _this = this;
+    let hit = cc.instantiate(_this.hit);
+    hit.setParent(_this.node);
+    hit.setPosition(cc.v2(0, -100));
+    let t = cc.tween;
+    cc.tween(hit)
+      // 同时执行两个 cc.tween
+      .parallel(
+        t().by(1, { scale: -1.5 }),
+        t().by(1, { position: cc.v2(0, 400) })
+      )
+      .start();
+
+    //计数+1
+    _this.hit_number += 1;
+
+    //重置timer
+    if (_this.hit_number_reset_timer) {
+      clearTimeout(_this.hit_number_reset_timer);
+    }
+
+    //赋值
+    hit
+      .getChildByName("hit_label")
+      .getChildByName("hit_number")
+      .getComponent(cc.Label).string = _this.hit_number;
+
+    //销毁
+    setTimeout(() => {
+      hit.destroy();
+    }, 1000);
+
+    //计数重置
+    _this.hit_number_reset_timer = setTimeout(() => {
+      _this.hit_number = 0;
+    }, 3000);
   },
 });
