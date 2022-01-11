@@ -1727,8 +1727,8 @@
       "width": 720,
       "height": 1280
     },
-    "_fitWidth": true,
-    "_fitHeight": false,
+    "_fitWidth": false,
+    "_fitHeight": true,
     "_id": "86rFJYj6ROaJcuetwZJthv"
   },
   {
@@ -1785,8 +1785,6 @@
     "top_button": {
       "__id__": 22
     },
-    "hit": null,
-    "hit_number": null,
     "_id": "2bfjvrvH1F6Zh2cF1/Zl/g"
   },
   {

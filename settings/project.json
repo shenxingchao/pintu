@@ -5,7 +5,7 @@
     "floor",
     "wall"
   ],
-  "last-module-event-record-time": 1640869050130,
+  "last-module-event-record-time": 1641897259983,
   "collision-matrix": [
     [
       true
@@ -53,5 +53,6 @@
     "audience": {
       "enable": false
     }
-  }
+  },
+  "start-scene": "current"
 }
