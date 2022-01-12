@@ -110,59 +110,47 @@ cc.Class({
     _this.options = [
       {
         score: 10,
-        color: new cc.Color().fromHEX("#8844D0"),
+        color: new cc.Color().fromHEX("#690F5F"),
       },
       {
         score: 20,
-        color: new cc.Color().fromHEX("#FF772D"),
+        color: new cc.Color().fromHEX("#FF0622"),
       },
       {
         score: 30,
-        color: new cc.Color().fromHEX("#E93738"),
+        color: new cc.Color().fromHEX("#FE8D1B"),
       },
       {
         score: 50,
-        color: new cc.Color().fromHEX("#F33D49"),
+        color: new cc.Color().fromHEX("#FFE409"),
       },
       {
         score: 100,
-        color: new cc.Color().fromHEX("#AAE733"),
+        color: new cc.Color().fromHEX("#53A428"),
       },
       {
         score: 200,
-        color: new cc.Color().fromHEX("#FEDA1C"),
+        color: new cc.Color().fromHEX("#EA3737"),
       },
       {
         score: 300,
-        color: new cc.Color().fromHEX("#FABE44"),
+        color: new cc.Color().fromHEX("#F59860"),
       },
       {
         score: 500,
-        color: new cc.Color().fromHEX("#9548C6"),
+        color: new cc.Color().fromHEX("#FFF384"),
       },
       {
         score: 1000,
-        color: new cc.Color().fromHEX("#8EA931"),
+        color: new cc.Color().fromHEX("#F5F0E1"),
       },
       {
         score: 2000,
-        color: new cc.Color().fromHEX("#C7F121"),
+        color: new cc.Color().fromHEX("#F4103C"),
       },
       {
         score: 3000,
-        color: new cc.Color().fromHEX("#E9655D"),
-      },
-      {
-        score: 5000,
-        color: new cc.Color().fromHEX("#DABA2A"),
-      },
-      {
-        score: 10000,
-        color: new cc.Color().fromHEX("#FCEE30"),
-      },
-      {
-        score: 20000,
-        color: new cc.Color().fromHEX("#176301"),
+        color: new cc.Color().fromHEX("#418F42"),
       },
     ];
   },
@@ -220,6 +208,9 @@ cc.Class({
         150 -
         _this.current_fruit_perfab.height / 2
     );
+    //禁用碰撞组件
+    let collider = _this.current_fruit_perfab.getComponent(cc.Collider);
+    collider.enabled = false;
     //放置到顶部中心
     _this.background.addChild(_this.current_fruit_perfab);
     start_pos =
@@ -268,8 +259,12 @@ cc.Class({
     //开始释放 到碰撞结束才生成新的预制体，期间不能有任何操作
     _this.stop_opration_flag = true;
 
+    //刚体静态改为动态 一开始是静态的，不然会掉下去
     let rigid_body = _this.current_fruit_perfab.getComponent(cc.RigidBody);
     rigid_body.type = cc.RigidBodyType.Dynamic;
+    //启用碰撞 一开始是不启用的，不然还没释放就可以触发碰撞了
+    let collider = _this.current_fruit_perfab.getComponent(cc.Collider);
+    collider.enabled = true;
 
     //是否已经生成标志
     let is_generate = false;
@@ -312,8 +307,9 @@ cc.Class({
               let ParticleSystem = _this.fruit_boom.getComponent(
                 cc.ParticleSystem
               );
+              //设置粒子颜色
               ParticleSystem.startColor = _this.options[index].color;
-              ParticleSystem.startColorVar = _this.options[index].color;
+              ParticleSystem.endColor = _this.options[index].color;
               //重置粒子系统(播放粒子)
               ParticleSystem.resetSystem();
               //生成一个大的放进去
@@ -355,7 +351,7 @@ cc.Class({
     let start_pos = fruit_perfab.parent.convertToNodeSpaceAR(collide_w_pos);
     fruit_perfab.setPosition(start_pos);
 
-    //赋予物理属性
+    //刚体静态改为动态
     let rigid_body = fruit_perfab.getComponent(cc.RigidBody);
     rigid_body.type = cc.RigidBodyType.Dynamic;
 
@@ -435,6 +431,10 @@ cc.Class({
       .getComponent(cc.Label).string = _this.hit_number;
     hit.setParent(_this.node);
     hit.setPosition(cc.v2(0, -100));
+    //播放太棒了音效
+    if (_this.hit_number > 2 && _this.hit_number % 3 == 0) {
+      _this.audio_manage.playHitEffect();
+    }
     let t = cc.tween;
     cc.tween(hit)
       // 同时执行两个 cc.tween

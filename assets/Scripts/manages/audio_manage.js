@@ -36,6 +36,11 @@ cc.Class({
       type: cc.AudioClip,
       tooltip: "游戏类型3爆炸声",
     },
+    hit: {
+      default: null,
+      type: cc.AudioClip,
+      tooltip: "连击音效",
+    },
   },
 
   onLoad() {},
@@ -131,5 +136,12 @@ cc.Class({
    */
   playCollideBoomEffect: function () {
     this._playEft(this.collide_boom);
+  },
+
+  /**
+   * 播放游戏类型3hit音效
+   */
+  playHitEffect: function () {
+    this._playEft(this.hit);
   },
 });
