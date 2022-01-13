@@ -11,7 +11,7 @@ cc.Class({
       default: null,
       type: cc.Node,
       displayName: "底部工具条",
-    }
+    },
   },
 
   // LIFE-CYCLE CALLBACKS:
@@ -100,13 +100,13 @@ cc.Class({
               //获取原图大小
               const { width: origin_width, height: origin_height } =
                 node.getContentSize();
-              //假设宽高最多为212 自适应图片宽高
+              //假设宽高最多为250 自适应图片宽高
               if (sprite.width > sprite.height) {
-                node.width = 212;
-                node.height = (212 * origin_height) / origin_width;
+                node.width = 250;
+                node.height = (250 * origin_height) / origin_width;
               } else {
-                node.width = (212 * origin_width) / origin_height;
-                node.height = 212;
+                node.width = (250 * origin_width) / origin_height;
+                node.height = 250;
               }
               //添加到拖动精灵组
               _this.drag_items.push(node);
@@ -179,6 +179,19 @@ cc.Class({
                   node.setParent(_this.tool_bar_box);
                   node.setPosition(0, 0);
                   node.setScale(1, 1);
+                  //设置为自定义尺寸
+                  sprite.sizeMode = cc.Sprite.SizeMode.CUSTOM;
+                  //获取原图大小
+                  const { width: origin_width, height: origin_height } =
+                    node.getContentSize();
+                  //假设宽高最多为250 自适应图片宽高
+                  if (sprite.width > sprite.height) {
+                    node.width = 250;
+                    node.height = (250 * origin_height) / origin_width;
+                  } else {
+                    node.width = (250 * origin_width) / origin_height;
+                    node.height = 250;
+                  }
                 } else {
                   //播放叮音效
                   if (audio_manage) {
@@ -189,7 +202,7 @@ cc.Class({
                     }
                   }
                   //播放粒子动画 设置层级防止挡住
-                  start_perfab.setSiblingIndex(101)
+                  start_perfab.setSiblingIndex(101);
                   start_perfab.x = node.x;
                   start_perfab.y = node.y;
                   start_perfab.setParent(_this.game_background);

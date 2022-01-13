@@ -986,7 +986,7 @@
     "_N$paddingRight": 30,
     "_N$paddingTop": 30,
     "_N$paddingBottom": 30,
-    "_N$spacingX": 50,
+    "_N$spacingX": 90,
     "_N$spacingY": 25,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
@@ -1341,6 +1341,7 @@
     "three_type_bg": null,
     "collide": null,
     "collide_boom": null,
+    "hit": null,
     "_id": "655pVZAShL6Ll1x6CkmFrB"
   }
 ]
