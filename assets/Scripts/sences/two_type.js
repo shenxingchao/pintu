@@ -89,9 +89,10 @@ cc.Class({
               chick.setParent(_this.background);
               //小鸡tween动画
               cc.tween(chick)
-                .by(5, {
+                .by(Math.floor(Math.random() * 20), {
                   position: cc.v2(
-                    cc.view.getVisibleSize().width + chick.width,
+                    (cc.view.getVisibleSize().width + chick.width) *
+                      (Math.random() < 0.5 ? -1 : 1),
                     Math.random() *
                       cc.view.getVisibleSize().height *
                       (Math.random() < 0.5 ? -1 : 1)
@@ -101,7 +102,7 @@ cc.Class({
               //5秒后移除
               setTimeout(() => {
                 chick.destroy();
-              }, 5000);
+              }, 20000);
             };
 
             //播放完毕移除
