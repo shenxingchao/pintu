@@ -20,7 +20,7 @@
         "__id__": 32
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [],
     "_prefab": null,
     "_opacity": 255,
@@ -1360,6 +1360,17 @@
     "collide": null,
     "collide_boom": null,
     "hit": null,
+    "play_type_bg": null,
+    "ont_type_pass_list_bg": null,
+    "game_bg": {
+      "__uuid__": "7ce1b946-d8f6-4500-aaf2-e553b69ba6e8"
+    },
+    "balloon_bg": {
+      "__uuid__": "e1ed7c86-ad4c-4c80-bacf-3a350185ca00"
+    },
+    "balloon_boom": {
+      "__uuid__": "b693efd5-4575-43e7-beeb-1869e743e48a"
+    },
     "_id": "230nwAKDxHxo6F1+r9HHOM"
   }
 ]

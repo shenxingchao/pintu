@@ -41,6 +41,31 @@ cc.Class({
       type: cc.AudioClip,
       tooltip: "连击音效",
     },
+    play_type_bg: {
+      default: null,
+      type: cc.AudioClip,
+      tooltip: "菜单背景音乐",
+    },
+    ont_type_pass_list_bg: {
+      default: null,
+      type: cc.AudioClip,
+      tooltip: "游戏类型1选择关卡背景音乐",
+    },
+    game_bg: {
+      default: null,
+      type: cc.AudioClip,
+      tooltip: "通用游戏背景音乐",
+    },
+    balloon_bg: {
+      default: null,
+      type: cc.AudioClip,
+      tooltip: "气球背景音乐",
+    },
+    balloon_boom: {
+      default: null,
+      type: cc.AudioClip,
+      tooltip: "气球爆炸音效",
+    },
   },
 
   onLoad() {},
@@ -48,6 +73,12 @@ cc.Class({
   start() {},
 
   update() {},
+
+  onDestroy() {
+    let _this = this;
+    //停止播放bg
+    _this._stopMusic();
+  },
 
   /**
    * 循环播放背景音乐私有方法
@@ -90,6 +121,41 @@ cc.Class({
   },
 
   /**
+   * 播放游戏类型3背景音乐
+   */
+  playThreeTypeBg: function () {
+    this._playMusic(this.three_type_bg);
+  },
+
+  /**
+   * 播放菜单背景音乐
+   */
+  playPlayTypeBg: function () {
+    this._playMusic(this.play_type_bg);
+  },
+
+  /**
+   * 播放游戏类型1选择关卡背景音乐
+   */
+  playOneTypePassListBg: function () {
+    this._playMusic(this.ont_type_pass_list_bg);
+  },
+
+  /**
+   * 播放通用游戏背景音乐
+   */
+  playGameBg: function () {
+    this._playMusic(this.game_bg);
+  },
+
+  /**
+   * 播放气球背景音乐
+   */
+  playBalloobBg: function () {
+    this._playMusic(this.balloon_bg);
+  },
+
+  /**
    * 播放按钮音效
    */
   playButtonEffect: function () {
@@ -118,13 +184,6 @@ cc.Class({
   },
 
   /**
-   * 播放游戏类型3背景音乐
-   */
-  playThreeTypeBg: function () {
-    this._playMusic(this.three_type_bg);
-  },
-
-  /**
    * 播放游戏类型3碰撞音效
    */
   playCollideEffect: function () {
@@ -143,5 +202,12 @@ cc.Class({
    */
   playHitEffect: function () {
     this._playEft(this.hit);
+  },
+
+  /**
+   * 播放气球爆炸音效
+   */
+  playBalloonBoomEffect: function () {
+    this._playEft(this.balloon_boom);
   },
 });

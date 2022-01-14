@@ -1092,6 +1092,9 @@
     "collide": null,
     "collide_boom": null,
     "hit": null,
+    "play_type_bg": {
+      "__uuid__": "fcef623c-28de-4762-84b7-b396609509b7"
+    },
     "_id": "e69XEOUCFFraCjMAb/TXCm"
   }
 ]

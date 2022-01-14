@@ -181,12 +181,6 @@ cc.Class({
     }
   },
 
-  onDestroy() {
-    let _this = this;
-    //停止播放bg
-    _this.audio_manage._stopMusic();
-  },
-
   /**
    *  生成水果预制体
    */

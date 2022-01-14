@@ -19,21 +19,25 @@ cc.Class({
     //记录原始缩放，不然会丢失，连续按的情况下
     let initscale = _this.node.scale;
     //定义按下回调
-    let onTouchDown = function () {
+    let onTouchDown = function (e) {
       //节点缓存动画 runAction已经弃用 执行缩放动画
       cc.tween(_this.node)
         .to(0.1, { scale: initscale * 0.9 })
         .start();
       //播放按钮音效
       if (audio_manage) audio_manage.playButtonEffect();
+      //禁止传递
+      e.stopPropagation();
     };
     //定义松开回调
-    let onTouchUp = function () {
+    let onTouchUp = function (e) {
       cc.tween(_this.node).to(0.1, { scale: initscale }).start();
       //如果有跳转场景
       if (_this.sence_name) {
         _this._loadSence(_this.sence_name);
       }
+      //禁止传递
+      e.stopPropagation();
     };
     this.node.on("touchstart", onTouchDown, this.node);
     this.node.on("touchend", onTouchUp, this.node);

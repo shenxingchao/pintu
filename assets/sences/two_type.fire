@@ -697,6 +697,14 @@
     "three_type_bg": null,
     "collide": null,
     "collide_boom": null,
+    "hit": null,
+    "play_type_bg": null,
+    "ont_type_pass_list_bg": null,
+    "game_bg": {
+      "__uuid__": "7ce1b946-d8f6-4500-aaf2-e553b69ba6e8"
+    },
+    "balloon_bg": null,
+    "balloon_boom": null,
     "_id": "5cur3gQ7NDYJwDflcEFUye"
   }
 ]

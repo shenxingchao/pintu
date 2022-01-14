@@ -1342,6 +1342,11 @@
     "collide": null,
     "collide_boom": null,
     "hit": null,
+    "play_type_bg": null,
+    "ont_type_pass_list_bg": {
+      "__uuid__": "37a5f5d3-fc1c-4a9e-957d-02186a1e70dd"
+    },
+    "game_bg": null,
     "_id": "655pVZAShL6Ll1x6CkmFrB"
   }
 ]

@@ -21,14 +21,33 @@ cc.Class({
     //定义音频管理器组件
     let audio_manage = cc.find("manage/audio_manage");
     if (audio_manage) {
-      audio_manage = audio_manage.getComponent("audio_manage");
+      _this.audio_manage = audio_manage.getComponent("audio_manage");
     }
+    _this.audio_manage.playGameBg();
+    //全局音效播放队列
+    _this.audio_queue = [];
 
     //读取常驻节点属性关卡属性
     let pass_index = cc.director.getScene().getChildByName("pass_node")
       ? cc.director.getScene().getChildByName("pass_node").pass_index
       : 0;
     //加载这个关卡需要用到的资源
+    //加载气球资源
+    cc.resources.loadDir(
+      "texture/balloon",
+      cc.SpriteFrame,
+      function (err, assets) {
+        _this.balloon_list = assets;
+        //排序不然加载顺序有问题
+        _this.balloon_list.sort((a, b) => Number(a.name) - Number(b.name));
+      }
+    );
+
+    // 加载 气球 Prefab
+    cc.resources.load("prefab/balloon", function (err, prefab) {
+      _this.balloon_prefab = prefab;
+    });
+
     // 加载目录下所有 SpriteFrame，并且获取它们的路径
     new Promise((resolve, reject) => {
       cc.resources.loadDir(
@@ -194,11 +213,19 @@ cc.Class({
                   }
                 } else {
                   //播放叮音效
-                  if (audio_manage) {
-                    audio_manage.playDingEffect();
+                  if (_this.audio_manage) {
+                    _this.audio_manage.playDingEffect();
                     if (_this.tool_bar_box.children.length == 0) {
+                      //停止背景音乐播放
+                      _this.audio_manage._stopMusic();
                       //播放游戏结束，挑战成功音效
-                      audio_manage.playGameSuccessEffect();
+                      _this.audio_manage.playGameSuccessEffect();
+                      setTimeout(() => {
+                        //播放气球背景音乐
+                        _this.audio_manage.playBalloobBg();
+                        //气球升起来
+                        _this.playBalloonTween();
+                      }, 4200);
                     }
                   }
                   //播放粒子动画 设置层级防止挡住
@@ -212,14 +239,19 @@ cc.Class({
                   );
                   //重置粒子系统(播放粒子)
                   ParticleSystem.resetSystem();
+                  //移除触摸监听 不能在放下来了
+                  node.off("touchstart", onTouchDown, _this);
+                  node.off("touchmove", onTouchMove, _this);
+                  node.off("touchend", onTouchUp, _this);
+                  node.off("touchcancel", onTouchUp, _this);
                 }
                 shadow_node.active = false;
               };
 
-              node.on("touchstart", onTouchDown, this);
-              node.on("touchmove", onTouchMove, this);
-              node.on("touchend", onTouchUp, this);
-              node.on("touchcancel", onTouchUp, this);
+              node.on("touchstart", onTouchDown, _this);
+              node.on("touchmove", onTouchMove, _this);
+              node.on("touchend", onTouchUp, _this);
+              node.on("touchcancel", onTouchUp, _this);
             }
             //添加精灵到拖动工具条内部直到添加完或者拖动项为3
             _this._initSpriteItem();
@@ -231,7 +263,23 @@ cc.Class({
 
   start() {},
 
-  // update (dt) {},
+  update(dt) {
+    let _this = this;
+    //气球爆炸音频队列处理
+    if (_this.audio_queue.length > 0 && !_this.is_playing_effect) {
+      _this.is_playing_effect = true;
+      _this.audio_queue.shift();
+      _this.audio_manage.playBalloonBoomEffect();
+      setTimeout(() => {
+        _this.is_playing_effect = false;
+      }, 200);
+    }
+  },
+  onDestroy() {
+    let _this = this;
+    //移除计时器
+    clearInterval(_this.interval);
+  },
 
   /**
    * 放置工具条内部的精灵
@@ -249,10 +297,88 @@ cc.Class({
       _this.tool_bar_box.addChild(node);
       //递归生成
       if (children.length < 3 && _this.drag_items.length > 0) {
-        this._initSpriteItem();
+        _this._initSpriteItem();
       } else {
         return false;
       }
     }
+  },
+
+  /**
+   * 播放气球升起动画
+   */
+  playBalloonTween() {
+    let _this = this;
+    //气球对象池
+    let balloon_pool = new cc.NodePool();
+    let initCount = 10;
+    for (let i = 0; i < initCount; ++i) {
+      let balloon_perfab = cc.instantiate(_this.balloon_prefab);
+      balloon_pool.put(balloon_perfab); // 通过 put 接口放入对象池
+    }
+
+    //生成20个气球
+    let balloon_number = 0;
+    //屏幕宽高
+    let screen_width = cc.view.getVisibleSize().width;
+    let screen_height = cc.view.getVisibleSize().height;
+    //计时器，每隔0.5秒生成气球
+    _this.interval = setInterval(() => {
+      //气球
+      let balloon = null;
+      let sprite = null;
+      let index = 0;
+      //随机位置
+      let x = 0;
+      let pos = null;
+      if (balloon_pool.size() > 0) {
+        // 通过 size 接口判断对象池中是否有空闲的对象
+        balloon = balloon_pool.get();
+        balloon.off("touchstart", onTouchDown, _this);
+      } else {
+        balloon = cc.instantiate(_this.balloon_prefab);
+      }
+      //气球按下事件
+      let onTouchDown = function (e) {
+        //播放戳破音效
+        _this.audio_queue.push("balloon_boom");
+        //回收
+        balloon_pool.put(balloon);
+      };
+
+      //赋值贴图
+      sprite = balloon.getComponent(cc.Sprite);
+      //随机贴图
+      index = Math.floor(Math.random() * _this.balloon_list.length);
+      sprite.spriteFrame = _this.balloon_list[index];
+      //防止到容器内容
+      balloon.setParent(_this.node);
+      //随机x位置
+      x = Math.random() * screen_width;
+      if (x < balloon.width / 2) {
+        x = balloon.width / 2;
+      } else if (x > screen_width - balloon.width / 2) {
+        x = screen_width - balloon.width / 2;
+      }
+      pos = cc.v2(x, -balloon.height / 2);
+      balloon.setPosition(balloon.parent.convertToNodeSpaceAR(pos));
+      //tween动画
+      cc.tween(balloon)
+        .by(4, { position: cc.v2(0, screen_height + balloon.height) })
+        .start();
+      //戳破事件 直接回收到对象池
+      balloon.on("touchstart", onTouchDown, _this);
+
+      //生成20个气球
+      if (balloon_number > 20) {
+        setTimeout(() => {
+          //移除计时器
+          clearInterval(_this.interval);
+          //清除对象池
+          balloon_pool.clear();
+        }, 4000);
+      }
+      balloon_number++;
+    }, 500);
   },
 });

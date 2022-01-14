@@ -13,6 +13,12 @@ cc.Class({
 
   onLoad() {
     let _this = this;
+    //定义音频管理器组件
+    let audio_manage = cc.find("manage/audio_manage");
+    if (audio_manage) {
+      _this.audio_manage = audio_manage.getComponent("audio_manage");
+    }
+    _this.audio_manage.playOneTypePassListBg();
     //添加常驻节点 记录当前玩的关卡 用于场景传数据
     let pass_node = new cc.Node("pass_node");
     //初始化玩家关卡属性

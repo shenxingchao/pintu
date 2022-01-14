@@ -18,6 +18,7 @@ cc.Class({
     if (audio_manage) {
       audio_manage = audio_manage.getComponent("audio_manage");
     }
+    audio_manage.playGameBg();
     // 加载目录下所有 SpriteFrame，并且获取它们的路径
     new Promise((resolve, reject) => {
       cc.resources.loadDir(
@@ -57,37 +58,54 @@ cc.Class({
             _this.background.addChild(egg);
             //设置坐标为点击的坐标
             egg.setPosition(egg.parent.convertToNodeSpaceAR(e.getLocation()));
+            //播放动画
             let AnimationSystem = egg.getComponent(cc.Animation);
+            AnimationSystem.off("finished", finished, _this);
             AnimationSystem.play();
             //播放蛋壳破碎音效
             if (audio_manage) {
               audio_manage.playEggEffect();
             }
+
+            let finished = function (e) {
+              //随机取一个
+              let index = Math.floor(Math.random() * sprite_array.length);
+              let chick_sprite_frame = sprite_array[index];
+              //创建节点
+              let chick = new cc.Node("chick");
+              //添加精灵组件使之成为精灵
+              let sprite = chick.addComponent(cc.Sprite);
+              //设置精灵贴图
+              sprite.spriteFrame = chick_sprite_frame;
+              //设置为原图尺寸
+              sprite.sizeMode = cc.Sprite.SizeMode.RAW;
+              //设置缩放
+              chick.setScale(0.8, 0.8);
+              //把egg位置赋值给小鸡
+              chick.setPosition(egg.getPosition());
+              //放回对象池，不销毁
+              egg_pool.put(egg);
+              //放入小鸡
+              chick.setParent(_this.background);
+              //小鸡tween动画
+              cc.tween(chick)
+                .by(5, {
+                  position: cc.v2(
+                    cc.view.getVisibleSize().width + chick.width,
+                    Math.random() *
+                      cc.view.getVisibleSize().height *
+                      (Math.random() < 0.5 ? -1 : 1)
+                  ),
+                })
+                .start();
+              //5秒后移除
+              setTimeout(() => {
+                chick.destroy();
+              }, 5000);
+            };
+
             //播放完毕移除
-            AnimationSystem.on(
-              "finished",
-              function () {
-                //随机取一个
-                let index = Math.floor(Math.random() * sprite_array.length);
-                let chick_sprite_frame = sprite_array[index];
-                //创建节点
-                let chick = new cc.Node("chick");
-                //添加精灵组件使之成为精灵
-                let sprite = chick.addComponent(cc.Sprite);
-                //设置精灵贴图
-                sprite.spriteFrame = chick_sprite_frame;
-                //设置为原图尺寸
-                sprite.sizeMode = cc.Sprite.SizeMode.RAW;
-                //设置缩放
-                chick.setScale(0.8, 0.8);
-                //把egg位置赋值给小鸡
-                chick.setPosition(egg.getPosition());
-                chick.setParent(_this.background);
-                //销毁蛋
-                egg.destroy();
-              },
-              _this
-            );
+            AnimationSystem.on("finished", finished, _this);
           },
           _this
         );

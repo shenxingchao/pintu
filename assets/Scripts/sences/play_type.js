@@ -11,7 +11,16 @@ cc.Class({
 
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad() {},
+  onLoad() {
+    let _this = this;
+    //定义音频管理器组件
+    let audio_manage = cc.find("manage/audio_manage");
+    if (audio_manage) {
+      _this.audio_manage = audio_manage.getComponent("audio_manage");
+    }
+    //播放bg
+    _this.audio_manage.playPlayTypeBg();
+  },
 
   start() {
     //新版写法
